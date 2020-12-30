@@ -94,13 +94,18 @@ def Test(module):
     FN = 0
     all_labels = []
     all_predictions = []
+    all_score = []
     for test_data, test_label in test_loader:
         output = module.test(test_data)
+
         _, predictions = torch.max(output.data, dim=1)
+        output = output.detach().numpy()
+        scores = output[:, 1]
         test_label = test_label.numpy()
         predictions = predictions.numpy()
         all_labels.extend(test_label)
         all_predictions.extend(predictions)
+        all_score.extend(scores)
         for index in range(len(predictions)):
             prediction = predictions[index]
             test = test_label[index]
@@ -118,7 +123,7 @@ def Test(module):
     print("FN: {0}".format(FN))
     print("AP: {0}".format((TP + TN) / (TP + FP + TN + FN)))
     print("AC: {0}".format((TP) / (TP + FP)))
-    print("AUC: {0}".format(roc_auc_score(all_labels, all_predictions)))
+    print("AUC: {0}".format(roc_auc_score(all_labels, all_score)))
 
 if __name__ == '__main__':
     Train(module, epochs)

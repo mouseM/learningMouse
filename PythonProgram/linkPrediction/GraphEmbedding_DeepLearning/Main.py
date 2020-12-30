@@ -7,7 +7,7 @@ from GraphEmbedding_DeepLearning.PolysemousNetworkEmbedding import PolysemousNet
 from GraphEmbedding_DeepLearning.PolysemousNetworkEmbedding import MihPolysemousNetwork
 from Tools import process_gml_file
 from Tools import get_data_loader
-from GraphEmbedding_DeepLearning.MihGNNEmbeddingModules import MihGNNEmbedding1
+from GraphEmbedding_DeepLearning.MihGNNEmbeddingModules import MihGNNEmbedding1, MihGNNEmbedding12WithJaccard
 from GraphEmbedding_DeepLearning.MihGNNEmbeddingModules import MihGNNEmbedding2
 from GraphEmbedding_DeepLearning.MihGNNEmbeddingModules import MihGNNEmbedding3
 from GraphEmbedding_DeepLearning.MihGNNEmbeddingModules import MihGNNEmbedding4
@@ -61,6 +61,8 @@ with open(r"./params.json", 'r') as file:
         module_params = params["MihGNNEmbedding11"]
     if module_name == "MihGNNEmbedding12":
         module_params = params["MihGNNEmbedding12"]
+    if module_name == "MihGNNEmbedding12WithJaccard":
+        module_params = params["MihGNNEmbedding12WithJaccard"]
     if module_name == "MihGNNEmbedding12WithNoAggregation":
         module_params = params["MihGNNEmbedding12WithNoAggregation"]
     if module_name == "MihGNNEmbedding12WithTrainWeight":
@@ -210,15 +212,13 @@ def Test2(module):
     all_score = []
     for test_data, test_label in test_loader:
         output = module.test(test_data)
-        scores, predictions = torch.max(output.data, dim=1)
+        _, predictions = torch.max(output.data, dim=1)
         test_label = test_label.numpy()
         predictions = predictions.numpy()
         output = output.detach().numpy()
-        # scores = output[:, predictions]
+        scores = output[:, 1]
         all_labels.extend(test_label)
         all_predictions.extend(predictions)
-
-        scores = scores.detach().numpy()
         all_score.extend(scores)
         for index in range(len(predictions)):
             prediction = predictions[index]
@@ -249,6 +249,7 @@ def Test2(module):
 cross_entropy_loss_function_Modules = ["MihGNNEmbedding4", "MihGNNEmbedding5", "MihGNNEmbedding6", "MihGNNEmbedding7",
                                        "MihGNNEmbedding9", "MihGNNEmbedding10", "MihGNNEmbedding11",
                                        "MihGNNEmbedding12", "MihGNNEmbedding12WithNoAggregation",
+                                       "MihGNNEmbedding12WithJaccard",
                                        "MihGNNEmbedding12WithTrainWeight",
                                        "MihGNNEmbedding12AferRandomWalk",
                                        "MihPolysemousNetworkEmbedding", "CovE"]
@@ -290,6 +291,10 @@ def create_module(name, A, As, all_nodes_neighbors, N, embedding_size, layers, s
     if name == "MihGNNEmbedding12":
         module = MihGNNEmbedding12(A=A, As=As, all_nodes_neighbors=all_nodes_neighbors, N=N, d=embedding_size,
                                    layers=layers, steps=steps, delay=delays, weight=weight, GPU=GPU)
+    if name == "MihGNNEmbedding12WithJaccard":
+        module = MihGNNEmbedding12WithJaccard(A=A, As=As, all_nodes_neighbors=all_nodes_neighbors, N=N, d=embedding_size,
+                                   layers=layers, steps=steps, delay=delays, weight=weight, GPU=GPU)
+
     if name == "MihGNNEmbedding12WithTrainWeight":
         module = MihGNNEmbedding12WithTrainWeight(A=A, As=As, all_nodes_neighbors=all_nodes_neighbors, N=N, d=embedding_size,
                                    layers=layers, steps=steps, delay=delays, GPU=GPU)

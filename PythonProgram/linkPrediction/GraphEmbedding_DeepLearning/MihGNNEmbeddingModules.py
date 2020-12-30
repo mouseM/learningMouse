@@ -567,6 +567,76 @@ class MihGNNEmbedding12(nn.Module):
         predictions = self.soft_max(predictions)
         return predictions
 
+class MihGNNEmbedding12WithJaccard(nn.Module):
+    def __init__(self,A, As, all_nodes_neighbors, N, d, layers, steps, delay, weight, GPU = False):
+        super(MihGNNEmbedding12WithJaccard, self).__init__()
+        self.original_A = torch.tensor(A, dtype=torch.float)
+        self.one_hop_matrix = torch.matmul(self.original_A, self.original_A)
+        self.A = Matrix_pre_handle(A, steps, delay)
+        self.A = torch.tensor(self.A, dtype = torch.float)
+        self.d = d
+        self.e = torch.tensor(math.e, dtype=torch.float)
+        self.layers = layers
+        self.As = As
+        self.weight = torch.tensor(weight, dtype = torch.float)
+        self.all_nodes_neighbors = all_nodes_neighbors
+        embedding_state = numpy.random.randn(N, d)
+        embedding_state = torch.tensor(data=embedding_state, dtype=torch.float)
+        self.aggregationModule = MihGNNAggregationModule2(A = self.A, As=As, all_nodes_neighbors = all_nodes_neighbors,
+                                                      convolution_layers=layers, d=d,
+                                                      embedding_states=embedding_state)
+        self.liner = LineNetwork(input_features=d * 2, output_features=2, hidden_features=d)
+        self.soft_max = nn.Softmax(dim = -1)
+        self.cross_entropy = nn.CrossEntropyLoss(weight = self.weight, reduction = 'sum')
+        # self.cross_entropy = nn.CrossEntropyLoss()
+
+    def forward(self, *input):
+        pairs = input[0]
+        labels = input[1]
+        node_indexes = pairs.permute([1, 0])
+        src_node_indexes = node_indexes[0]
+        dst_node_indexes = node_indexes[1]
+        src_node_embeddings = self.aggregationModule(src_node_indexes)
+        dst_node_embeddings = self.aggregationModule(dst_node_indexes)
+        node_embeddings = torch.cat([src_node_embeddings, dst_node_embeddings], dim = -1)
+        predictions = self.liner(node_embeddings)
+
+        src_nodes_neighbors = self.original_A[src_node_indexes]
+        src_nodes_neighbors_count = torch.sum(src_nodes_neighbors, dim=-1, keepdim=False)
+        dst_nodes_neighbors = self.original_A[dst_node_indexes]
+        dst_nodes_neighbors_count = torch.sum(dst_nodes_neighbors, dim=-1, keepdim=False)
+        all_neighbors_count = src_nodes_neighbors_count + dst_nodes_neighbors_count
+        labels_onehot = nn.functional.one_hot(labels, 2)
+        distributions = math.e ** predictions
+        distributions = distributions / torch.sum(distributions, dim=-1, keepdim=True)
+        distributions = -torch.log(distributions)
+
+        cn_count = self.one_hop_matrix[src_node_indexes, dst_node_indexes]
+        jaccard = cn_count / all_neighbors_count
+
+        jaccard = torch.where(torch.isnan(jaccard), torch.full_like(jaccard, 0), jaccard)
+        shift_radio = 1 / (2 * math.e ** (jaccard))
+        shift_radio = shift_radio.unsqueeze(dim=1)
+        shift_radio = shift_radio.repeat((1, 2))
+        labels_onehot = labels_onehot - shift_radio * 0.1
+        labels_onehot = torch.abs(labels_onehot)
+        distributions = torch.mul(distributions, labels_onehot)
+        loss = torch.sum(distributions)
+
+        return loss
+
+    def test(self, edges):
+        edges = edges.permute([1, 0])
+        src_node_indexes = edges[0]
+        dst_node_indexes = edges[1]
+
+        src_node_embeddings = self.aggregationModule(src_node_indexes)
+        dst_node_embeddings = self.aggregationModule(dst_node_indexes)
+        node_embeddings = torch.cat([src_node_embeddings, dst_node_embeddings], dim=-1)
+        predictions = self.liner(node_embeddings)
+        predictions = self.soft_max(predictions)
+        return predictions
+
 class MihGNNEmbedding12WithTrainWeight(nn.Module):
     def __init__(self,A, As, all_nodes_neighbors, N, d, layers, steps, delay, GPU = False):
         super(MihGNNEmbedding12WithTrainWeight, self).__init__()

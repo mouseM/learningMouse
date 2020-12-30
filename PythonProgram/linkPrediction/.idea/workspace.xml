@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -52,113 +49,38 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d46564e-4ec2-442b-bb46-03ab7f1a4659" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/src/main/java/October/BeiKe/Test1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/src/main/java/October/BeiKe/Test2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/src/main/java/October/BeiKe/Test3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/src/main/java/October/BeiKe/Test4.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/src/main/java/October/SafeChina/Test1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/src/main/java/October/SafeChina/Test2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/src/main/java/October/day20201020.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/src/main/java/October/day20201023.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/src/main/java/October/day20201024.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/src/main/java/October/day20201026.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Controllers/AdminController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Controllers/CourseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Controllers/ScoreController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Controllers/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/ClassImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/Services/ClassService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/Services/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/UserImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Mappers/CourseMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Mappers/UserMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Modules/Annotation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/resources/Mappers/CourseMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/resources/Mappers/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/JAVA基础/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/JAVA基础/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/JAVA基础/MutliThread/src/main/java/ThreadLocalTest/Test1.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/JAVA基础/MutliThread/src/main/java/ThreadLocalTest/Test1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/JAVA基础/MutliThread/target/classes/ThreadLocalTest/Test1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/JAVA基础/MutliThread/target/classes/ThreadLocalTest/Test1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/JAVA基础/MutliThread/target/classes/ThreadLocalTest/Test1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/JAVA基础/MutliThread/target/classes/ThreadLocalTest/Test1$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/JAVA基础/MutliThread/target/classes/ThreadLocalTest/Test1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/JAVA基础/MutliThread/target/classes/ThreadLocalTest/Test1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/LeCode/target/classes/October/QiAnXin/Test2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/LeCode/target/classes/October/QiAnXin/Test2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Controllers/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Controllers/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Controllers/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Modules/Response.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/ScoreImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/ScoreImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/Services/ScoreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/Services/ScoreService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/Services/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/Services/TeacherService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/StudentImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/StudentImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/TeacherImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Dao/TeacherImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Mappers/ScoreMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Mappers/ScoreMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Mappers/StudentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Mappers/StudentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Mappers/TeacherMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Mappers/TeacherMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Modules/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Modules/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Modules/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Modules/Teacher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Modules/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/java/Mih/demo/Modules/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/resources/Mappers/ScoreMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/resources/Mappers/ScoreMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/resources/Mappers/StudentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/resources/Mappers/StudentMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/resources/Mappers/TeacherMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../JavaProgram/demo/src/main/resources/Mappers/TeacherMapper.xml" afterDir="false" />
+    <list default="true" id="0deff6a6-6e83-4f39-9fd3-ee9ba791e1da" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraphEmbedding_DeepLearning/GraphSAGE.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraphEmbedding_DeepLearning/GraphSAGE.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GraphEmbedding_DeepLearning/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraphEmbedding_DeepLearning/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GraphEmbedding_DeepLearning/MihGNNEmbeddingModules.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraphEmbedding_DeepLearning/MihGNNEmbeddingModules.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GraphEmbedding_DeepLearning/params.json" beforeDir="false" afterPath="$PROJECT_DIR$/GraphEmbedding_DeepLearning/params.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HeuristicAlgorithm/CN.py" beforeDir="false" afterPath="$PROJECT_DIR$/HeuristicAlgorithm/CN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HeuristicAlgorithm/params.json" beforeDir="false" afterPath="$PROJECT_DIR$/HeuristicAlgorithm/params.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraphEmbedding_RandomWalk/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraphEmbedding_RandomWalk/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraphEmbedding_RandomWalk/params.json" beforeDir="false" afterPath="$PROJECT_DIR$/GraphEmbedding_RandomWalk/params.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="ProjectId" id="1hMEr26BpaW0VLSPUbK2sfB2u7h" />
+  <component name="ProjectId" id="1mMnEzUA5TNWdTs2OdYJUjsvKOz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../KDD20-Hands-on-Tutorial" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.Test">
-    <configuration name="GraphSAGE" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="linkPrediction" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GraphEmbedding_DeepLearning" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GraphEmbedding_DeepLearning/GraphSAGE.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.Main (1)">
     <configuration name="Main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="linkPrediction" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -167,11 +89,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/HeuristicAlgorithm" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GraphEmbedding_RandomWalk" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/HeuristicAlgorithm/Main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GraphEmbedding_RandomWalk/Main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -201,66 +123,21 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="linkPrediction" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Tools" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="linkPrediction" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tools.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Test" />
         <item itemvalue="Python.Main (1)" />
         <item itemvalue="Python.Main" />
-        <item itemvalue="Python.GraphSAGE" />
-        <item itemvalue="Python.Tools" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2d46564e-4ec2-442b-bb46-03ab7f1a4659" name="Default Changelist" comment="" />
-      <created>1599812756080</created>
+      <changelist id="0deff6a6-6e83-4f39-9fd3-ee9ba791e1da" name="Default Changelist" comment="" />
+      <created>1609312219577</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1599812756080</updated>
+      <updated>1609312219577</updated>
     </task>
     <servers />
   </component>
@@ -274,89 +151,31 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1302" height="440" key="DebuggerActiveHint" timestamp="1603182974651">
+    <state width="1246" height="213" key="GridCell.Tab.0.bottom" timestamp="1609319520246">
       <screen x="0" y="0" width="1304" height="768" />
     </state>
-    <state width="1302" height="440" key="DebuggerActiveHint/0.0.1304.768@0.0.1304.768" timestamp="1603182974651" />
-    <state x="432" y="138" key="FileChooserDialogImpl" timestamp="1604282685858">
+    <state width="1246" height="213" key="GridCell.Tab.0.bottom/0.0.1304.768@0.0.1304.768" timestamp="1609319520246" />
+    <state width="1246" height="213" key="GridCell.Tab.0.center" timestamp="1609319520245">
       <screen x="0" y="0" width="1304" height="768" />
     </state>
-    <state x="432" y="138" key="FileChooserDialogImpl/0.0.1304.768@0.0.1304.768" timestamp="1604282685858" />
-    <state width="1283" height="148" key="GridCell.Tab.0.bottom" timestamp="1603434140393">
+    <state width="1246" height="213" key="GridCell.Tab.0.center/0.0.1304.768@0.0.1304.768" timestamp="1609319520245" />
+    <state width="1246" height="213" key="GridCell.Tab.0.left" timestamp="1609319520245">
       <screen x="0" y="0" width="1304" height="768" />
     </state>
-    <state width="1283" height="148" key="GridCell.Tab.0.bottom/0.0.1304.768@0.0.1304.768" timestamp="1603434140393" />
-    <state width="1283" height="148" key="GridCell.Tab.0.center" timestamp="1603434140393">
+    <state width="1246" height="213" key="GridCell.Tab.0.left/0.0.1304.768@0.0.1304.768" timestamp="1609319520245" />
+    <state width="1246" height="213" key="GridCell.Tab.0.right" timestamp="1609319520246">
       <screen x="0" y="0" width="1304" height="768" />
     </state>
-    <state width="1283" height="148" key="GridCell.Tab.0.center/0.0.1304.768@0.0.1304.768" timestamp="1603434140393" />
-    <state width="1283" height="148" key="GridCell.Tab.0.left" timestamp="1603434140393">
+    <state width="1246" height="213" key="GridCell.Tab.0.right/0.0.1304.768@0.0.1304.768" timestamp="1609319520246" />
+    <state x="153" y="28" key="SettingsEditor" timestamp="1609312311709">
       <screen x="0" y="0" width="1304" height="768" />
     </state>
-    <state width="1283" height="148" key="GridCell.Tab.0.left/0.0.1304.768@0.0.1304.768" timestamp="1603434140393" />
-    <state width="1283" height="148" key="GridCell.Tab.0.right" timestamp="1603434140393">
+    <state x="153" y="28" key="SettingsEditor/0.0.1304.768@0.0.1304.768" timestamp="1609312311709" />
+    <state x="315" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1609316130687">
       <screen x="0" y="0" width="1304" height="768" />
     </state>
-    <state width="1283" height="148" key="GridCell.Tab.0.right/0.0.1304.768@0.0.1304.768" timestamp="1603434140393" />
-    <state width="1283" height="148" key="GridCell.Tab.1.bottom" timestamp="1603434140403">
-      <screen x="0" y="0" width="1304" height="768" />
-    </state>
-    <state width="1283" height="148" key="GridCell.Tab.1.bottom/0.0.1304.768@0.0.1304.768" timestamp="1603434140403" />
-    <state width="1283" height="148" key="GridCell.Tab.1.center" timestamp="1603434140393">
-      <screen x="0" y="0" width="1304" height="768" />
-    </state>
-    <state width="1283" height="148" key="GridCell.Tab.1.center/0.0.1304.768@0.0.1304.768" timestamp="1603434140393" />
-    <state width="1283" height="148" key="GridCell.Tab.1.left" timestamp="1603434140393">
-      <screen x="0" y="0" width="1304" height="768" />
-    </state>
-    <state width="1283" height="148" key="GridCell.Tab.1.left/0.0.1304.768@0.0.1304.768" timestamp="1603434140393" />
-    <state width="1283" height="148" key="GridCell.Tab.1.right" timestamp="1603434140403">
-      <screen x="0" y="0" width="1304" height="768" />
-    </state>
-    <state width="1283" height="148" key="GridCell.Tab.1.right/0.0.1304.768@0.0.1304.768" timestamp="1603434140403" />
-    <state x="158" y="49" key="SettingsEditor" timestamp="1602830359736">
-      <screen x="0" y="0" width="1304" height="768" />
-    </state>
-    <state x="158" y="49" key="SettingsEditor/0.0.1304.768@0.0.1304.768" timestamp="1602830359736" />
-    <state x="373" y="125" width="564" height="524" key="StructurePopup" timestamp="1604453389084">
-      <screen x="0" y="0" width="1304" height="768" />
-    </state>
-    <state x="373" y="125" width="564" height="524" key="StructurePopup/0.0.1304.768@0.0.1304.768" timestamp="1604453389084" />
-    <state x="262" y="41" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1601112356517">
-      <screen x="0" y="0" width="1304" height="768" />
-    </state>
-    <state x="262" y="41" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1304.768@0.0.1304.768" timestamp="1601112356517" />
-    <state x="206" y="119" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1603182202717">
-      <screen x="0" y="0" width="1304" height="768" />
-    </state>
-    <state x="206" y="119" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1304.768@0.0.1304.768" timestamp="1603182202717" />
-    <state x="315" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1601123053158">
-      <screen x="0" y="0" width="1304" height="768" />
-    </state>
-    <state x="315" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1304.768@0.0.1304.768" timestamp="1601123053158" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GraphEmbedding_DeepLearning/Main.py</url>
-          <line>212</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Test.py</url>
-          <line>423</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Test.py</url>
-          <line>464</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="315" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1304.768@0.0.1304.768" timestamp="1609316130687" />
   </component>
 </project>

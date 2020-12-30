@@ -1,11 +1,11 @@
 {
 
-  "data_set": "USAir",
+  "data_set": "Yeast",
   "radio": 0.9,
   "batchSize": 128,
   "epochs": 50,
   "learning_rate": 0.0001,
-  "module_name": "MihGNNEmbedding12",
+  "module_name": "MihGNNEmbedding12WithJaccard",
   "MihGNNEmbedding1": {
     "embedding_size": 64,
     "layers": 2,
@@ -78,6 +78,13 @@
     "steps": 2,
     "delays": [1.0, 0.5]
   },
+  "MihGNNEmbedding12WithJaccard": {
+    "embedding_size": 128,
+    "layers": 2,
+    "steps": 2,
+    "delays": [1.0, 0.5]
+  },
+
   "MihGNNEmbedding12WithNoAggregation": {
     "embedding_size": 128,
     "layers": 2,
