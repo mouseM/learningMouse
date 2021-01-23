@@ -7,6 +7,7 @@ from Tools import process_gml_file
 from Tools import get_data_loader
 from tqdm import tqdm
 from sklearn.metrics import roc_auc_score
+import numpy
 with open(r"./params.json", 'r') as file:
     params = json.load(file)
     data_set_name = params["data_set"]
@@ -68,9 +69,6 @@ if module_name == 'Node2Vec':
 
 
 def Train(module, epochs):
-    print("module parameters:")
-    for name, parameter in module.named_parameters():
-        print("name:{0}\nparameter:{1}".format(name, parameter))
     optimizer = optim.Adam(module.parameters(), lr=learning_rate)
     for epoch in tqdm(range(epochs)):
         sum_loss = 0.0
@@ -86,8 +84,7 @@ def Train(module, epochs):
 
 
 def Test(module):
-    for name, parameter in module.named_parameters():
-        print("name:{0}\nparameter:{1}".format(name, parameter))
+
     TP = 0
     TN = 0
     FP = 0
@@ -124,7 +121,12 @@ def Test(module):
     print("AP: {0}".format((TP + TN) / (TP + FP + TN + FN)))
     print("AC: {0}".format((TP) / (TP + FP)))
     print("AUC: {0}".format(roc_auc_score(all_labels, all_score)))
-
+def setup_seed(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    numpy.random.seed(seed)
+    torch.backends.cudnn.deterministic = True
 if __name__ == '__main__':
+    setup_seed(6)
     Train(module, epochs)
     Test(module)

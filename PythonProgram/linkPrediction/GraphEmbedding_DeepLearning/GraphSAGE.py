@@ -233,9 +233,20 @@ class MihModule(nn.Module):
         embeddings = torch.tensor(data = embeddings, dtype = torch.float)
         self.graphSage = GraphSage(num_layers = layers, input_size = embedding_size, out_size = embedding_size,
                               raw_features = embeddings, adj_lists = all_neighbors)
-        self.liner = LineNetwork(input_features=embedding_size * 2, output_features=2, hidden_features=embedding_size)
+        self.liner = LineNetwork(input_features=embedding_size, output_features=2, hidden_features=embedding_size)
         self.soft_max = nn.Softmax(dim=-1)
         self.cross_entropy = nn.CrossEntropyLoss()
+
+        self.edge_generator_forward = nn.Sequential(
+            nn.Linear(embedding_size * 2, embedding_size * 2, bias=True),
+            nn.BatchNorm1d(num_features=embedding_size * 2),
+            nn.ReLU()
+        )
+        self.edge_generator_backward = nn.Sequential(
+            nn.Linear(embedding_size * 2, embedding_size * 2, bias=True),
+            nn.BatchNorm1d(num_features=embedding_size * 2),
+            nn.ReLU()
+        )
 
     def forward(self, *input):
         edges = input[0]
@@ -245,8 +256,21 @@ class MihModule(nn.Module):
         labels = torch.tensor(labels, dtype = torch.long)
         srcNodesEmbedding = self.graphSage(srcNodes)
         dstNodesEmbedding = self.graphSage(dstNodes)
-        node_embeddings = torch.cat([srcNodesEmbedding, dstNodesEmbedding], dim=-1)
-        predictions = self.liner(node_embeddings)
+        # 直接拼接形成边
+        # edge_embeddings = torch.cat([srcNodesEmbedding, dstNodesEmbedding], dim=-1)
+
+        # # 使用一个独立的模型生成边
+        # edge_embeddings_forward = torch.cat([srcNodesEmbedding, dstNodesEmbedding], dim=-1)
+        # edge_embeddings_backward = torch.cat([dstNodesEmbedding, srcNodesEmbedding], dim=-1)
+        # # 添加一个边的生成层
+        # edge_embeddings_forward = self.edge_generator_forward(edge_embeddings_forward)
+        # edge_embeddings_backward = self.edge_generator_backward(edge_embeddings_backward)
+        # edge_embeddings = edge_embeddings_forward + edge_embeddings_backward
+
+        # 使用哈达玛积形成边
+        edge_embeddings = torch.mul(srcNodesEmbedding, dstNodesEmbedding)
+
+        predictions = self.liner(edge_embeddings)
         predictions = self.soft_max(predictions)
         loss = self.cross_entropy(predictions, labels)
         return loss
@@ -256,8 +280,19 @@ class MihModule(nn.Module):
         dstNodes = [edge[1] for edge in edges]
         srcNodesEmbedding = self.graphSage(srcNodes)
         dstNodesEmbedding = self.graphSage(dstNodes)
-        node_embeddings = torch.cat([srcNodesEmbedding, dstNodesEmbedding], dim=-1)
-        predictions = self.liner(node_embeddings)
+        # edge_embeddings = torch.cat([srcNodesEmbedding, dstNodesEmbedding], dim=-1)
+
+        # edge_embeddings_forward = torch.cat([srcNodesEmbedding, dstNodesEmbedding], dim=-1)
+        # edge_embeddings_backward = torch.cat([dstNodesEmbedding, srcNodesEmbedding], dim=-1)
+        # # 添加一个边的生成层
+        # edge_embeddings_forward = self.edge_generator_forward(edge_embeddings_forward)
+        # edge_embeddings_backward = self.edge_generator_backward(edge_embeddings_backward)
+        # edge_embeddings = edge_embeddings_forward + edge_embeddings_backward
+
+        # 使用哈达玛积形成边
+        edge_embeddings = torch.mul(srcNodesEmbedding, dstNodesEmbedding)
+
+        predictions = self.liner(edge_embeddings)
         predictions = self.soft_max(predictions)
         return predictions
 

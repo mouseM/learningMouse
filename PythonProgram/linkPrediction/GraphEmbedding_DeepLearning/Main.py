@@ -146,9 +146,6 @@ N = A_shape[0]
 print("邻接矩阵尺寸：[{0}, {1}]".format(A_shape[0], A_shape[1]))
 
 def Train(module, epochs):
-    print("module parameters:")
-    for name, parameter in module.named_parameters():
-        print("name:{0}\nparameter:{1}".format(name, parameter))
     optimizer = optim.Adam(module.parameters(), lr=learning_rate)
     for epoch in tqdm(range(epochs)):
         sum_loss = 0.0
@@ -163,8 +160,6 @@ def Train(module, epochs):
         print("epochs : {0} loss : {1}".format(epoch, sum_loss))
 
 def Test1(module):
-    for name, parameter in module.named_parameters():
-        print("name:{0}\nparameter:{1}".format(name, parameter))
     all_labels = []
     all_predictions = []
     for i, data in enumerate(test_loader, 0):
@@ -201,8 +196,6 @@ def Test1(module):
         print("AUC: {0}".format(roc_auc_score(all_labels, all_predictions)))
 
 def Test2(module):
-    for name, parameter in module.named_parameters():
-        print("name:{0}\nparameter:{1}".format(name, parameter))
     TP = 0
     TN = 0
     FP = 0
@@ -348,9 +341,15 @@ def create_module(name, A, As, all_nodes_neighbors, N, embedding_size, layers, s
         module = MihPolysemousNetwork(P=P, A=A_test, embedding_size=embedding_size, layers=layers, K=K, GPU=GPU)
     return module
 
-if __name__ == '__main__':
+def setup_seed(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    numpy.random.seed(seed)
+    torch.backends.cudnn.deterministic = True
 
-    for i in range(1):
+if __name__ == '__main__':
+    setup_seed(6)
+    for i in range(10):
         print("---------------------{0} time ----------------------".format(i + 1))
         train_loader, test_loader, A_test, weight = get_data_loader(A, radio, batchSize, "under_sample", GPU)
         module = create_module(name=module_name, A=A_test, As=As, all_nodes_neighbors=all_nodes_neighbors, N=N,

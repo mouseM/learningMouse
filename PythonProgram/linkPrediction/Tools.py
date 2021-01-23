@@ -223,11 +223,85 @@ def generate_random_graph(N, density):
 # radio 为0.0~1.0之间的float, 表示多少的数据用作训练集
 # batch_size 为批训练的数据量
 def get_data_loader(A, radio, batch_size = 32, sample_method = 'under_sample', GPU = False):
+    # node_number = A.shape[0]
+    # positives = []
+    # negavives = []
+    # for i in range(node_number):
+    #     for j in range(i, node_number):
+    #         if i != j:
+    #             label = A[i][j]
+    #             if label == 1:
+    #                 positives.append([i, j, 1])
+    #             if label == 0:
+    #                 negavives.append([i, j, 0])
+    # edges_size = len(positives)
+    # none_edges_size = len(negavives)
+    # if sample_method == 'all_sample':
+    #     numpy.random.shuffle(positives)
+    #     numpy.random.shuffle(negavives)
+    #
+    #     train_positives = positives[: int(edges_size * radio)]
+    #     test_positives = positives[int(edges_size * radio):]
+    #     train_negatives = negavives[: int(none_edges_size * radio)]
+    #     test_negatives = negavives[int(none_edges_size * radio):]
+    #
+    #     train_positives.extend(train_negatives)
+    #     train_data = train_positives
+    #     test_positives.extend(test_negatives)
+    #     test_data = test_positives
+    #     numpy.random.shuffle(train_data)
+    #     numpy.random.shuffle(test_data)
+    #     weight = [1, int(none_edges_size / edges_size)]
+    # if sample_method == 'under_sample':
+    #     numpy.random.shuffle(positives)
+    #     numpy.random.shuffle(negavives)
+    #     train_positives = positives[: int(edges_size * radio)]
+    #     test_positives = positives[int(edges_size * radio):]
+    #     train_negatives = negavives[: int(edges_size * radio)]
+    #     # test_negatives = negavives[int(edges_size * radio):]
+    #     test_negatives = negavives[int(edges_size * radio): edges_size]
+    #     train_positives.extend(train_negatives)
+    #     train_data = train_positives
+    #     test_positives.extend(test_negatives)
+    #     test_data = test_positives
+    #     numpy.random.shuffle(train_data)
+    #     numpy.random.shuffle(test_data)
+    #     weight = [2, 1]
+    # if sample_method == 'over_sample':
+    #     pass
+    # A_test = numpy.zeros(shape=[node_number, node_number])
+    # for i, index in enumerate(positives):
+    #     row = index[0]
+    #     col = index[1]
+    #     A_test[row][col] = 1
+    #     A_test[col][row] = 1
+    # train_pairs = [pair[: 2] for pair in train_data]
+    # train_labels = [pair[-1] for pair in train_data]
+    # test_pairs = [pair[: 2] for pair in test_data]
+    # test_labels = [pair[-1] for pair in test_data]
+    # train_pairs = torch.tensor(train_pairs, dtype=torch.long)
+    # train_label = torch.tensor(train_labels, dtype=torch.long)
+    # train_dataSet = Data.TensorDataset(train_pairs, train_label)
+    # train_loader = Data.DataLoader(
+    #     dataset=train_dataSet,
+    #     batch_size=batch_size,
+    #     shuffle=True,
+    # )
+    # test_pairs = torch.tensor(test_pairs, dtype=torch.long)
+    # test_label = torch.tensor(test_labels, dtype=torch.long)
+    # test_dataSet = Data.TensorDataset(test_pairs, test_label)
+    # test_loader = Data.DataLoader(
+    #     dataset=test_dataSet,
+    #     batch_size=batch_size,
+    #     shuffle=True,
+    # )
+    # return train_loader, test_loader, A_test, weight
+
     node_number = A.shape[0]
     positives = []
     negavives = []
     for i in range(node_number):
-        for j in range(i, node_number):
+        for j in range(0, node_number):
             if i != j:
                 label = A[i][j]
                 if label == 1:
@@ -245,36 +319,35 @@ def get_data_loader(A, radio, batch_size = 32, sample_method = 'under_sample', G
         train_negatives = negavives[: int(none_edges_size * radio)]
         test_negatives = negavives[int(none_edges_size * radio):]
 
-        train_positives.extend(train_negatives)
-        train_data = train_positives
-        test_positives.extend(test_negatives)
-        test_data = test_positives
-        numpy.random.shuffle(train_data)
-        numpy.random.shuffle(test_data)
         weight = [1, int(none_edges_size / edges_size)]
     if sample_method == 'under_sample':
         numpy.random.shuffle(positives)
         numpy.random.shuffle(negavives)
         train_positives = positives[: int(edges_size * radio)]
         test_positives = positives[int(edges_size * radio):]
-        train_negatives = negavives[: int(edges_size * radio)]
+
+        negative_edges = edges_size * 1
+
+        train_negatives = negavives[: int(negative_edges * radio)]
         # test_negatives = negavives[int(edges_size * radio):]
-        test_negatives = negavives[int(edges_size * radio): edges_size]
-        train_positives.extend(train_negatives)
-        train_data = train_positives
-        test_positives.extend(test_negatives)
-        test_data = test_positives
-        numpy.random.shuffle(train_data)
-        numpy.random.shuffle(test_data)
-        weight = [2, 1]
+        test_negatives = negavives[int(negative_edges * radio): negative_edges]
+
     if sample_method == 'over_sample':
         pass
     A_test = numpy.zeros(shape=[node_number, node_number])
-    for i, index in enumerate(positives):
+    print("edge size in test graph : {0}".format(len(train_positives)))
+    for i, index in enumerate(train_positives):
         row = index[0]
         col = index[1]
         A_test[row][col] = 1
         A_test[col][row] = 1
+    train_positives.extend(train_negatives)
+    train_data = train_positives
+    test_positives.extend(test_negatives)
+    test_data = test_positives
+    numpy.random.shuffle(train_data)
+    numpy.random.shuffle(test_data)
+    weight = [1, 1]
     train_pairs = [pair[: 2] for pair in train_data]
     train_labels = [pair[-1] for pair in train_data]
     test_pairs = [pair[: 2] for pair in test_data]

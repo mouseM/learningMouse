@@ -533,13 +533,14 @@ class MihGNNEmbedding12(nn.Module):
         self.all_nodes_neighbors = all_nodes_neighbors
         embedding_state = numpy.random.randn(N, d)
         embedding_state = torch.tensor(data=embedding_state, dtype=torch.float)
+        # embedding_state = torch.randn(size=[N, d], dtype=torch.float)
         self.aggregationModule = MihGNNAggregationModule2(A = self.A, As=As, all_nodes_neighbors = all_nodes_neighbors,
                                                       convolution_layers=layers, d=d,
                                                       embedding_states=embedding_state)
         self.liner = LineNetwork(input_features=d * 2, output_features=2, hidden_features=d)
         self.soft_max = nn.Softmax(dim = -1)
-        self.cross_entropy = nn.CrossEntropyLoss(weight = self.weight, reduction = 'sum')
-        # self.cross_entropy = nn.CrossEntropyLoss()
+        # self.cross_entropy = nn.CrossEntropyLoss(weight = self.weight, reduction = 'sum')
+        self.cross_entropy = nn.CrossEntropyLoss()
 
     def forward(self, *input):
         pairs = input[0]
@@ -585,6 +586,19 @@ class MihGNNEmbedding12WithJaccard(nn.Module):
         self.aggregationModule = MihGNNAggregationModule2(A = self.A, As=As, all_nodes_neighbors = all_nodes_neighbors,
                                                       convolution_layers=layers, d=d,
                                                       embedding_states=embedding_state)
+        self.edge_generator_forward  = nn.Sequential(
+            nn.Linear(d * 2, d * 2, bias=True),
+            nn.BatchNorm1d(num_features = d * 2),
+            nn.ReLU(),
+            nn.Linear(d * 2, d * 2, bias=True),
+            nn.BatchNorm1d(num_features=d * 2),
+            nn.ReLU()
+        )
+        # self.edge_generator_backward = nn.Sequential(
+        #     nn.Linear(d * 2, d * 2, bias=True),
+        #     nn.BatchNorm1d(num_features=d * 2),
+        #     nn.ReLU()
+        # )
         self.liner = LineNetwork(input_features=d * 2, output_features=2, hidden_features=d)
         self.soft_max = nn.Softmax(dim = -1)
         self.cross_entropy = nn.CrossEntropyLoss(weight = self.weight, reduction = 'sum')
@@ -598,31 +612,19 @@ class MihGNNEmbedding12WithJaccard(nn.Module):
         dst_node_indexes = node_indexes[1]
         src_node_embeddings = self.aggregationModule(src_node_indexes)
         dst_node_embeddings = self.aggregationModule(dst_node_indexes)
-        node_embeddings = torch.cat([src_node_embeddings, dst_node_embeddings], dim = -1)
-        predictions = self.liner(node_embeddings)
 
-        src_nodes_neighbors = self.original_A[src_node_indexes]
-        src_nodes_neighbors_count = torch.sum(src_nodes_neighbors, dim=-1, keepdim=False)
-        dst_nodes_neighbors = self.original_A[dst_node_indexes]
-        dst_nodes_neighbors_count = torch.sum(dst_nodes_neighbors, dim=-1, keepdim=False)
-        all_neighbors_count = src_nodes_neighbors_count + dst_nodes_neighbors_count
-        labels_onehot = nn.functional.one_hot(labels, 2)
-        distributions = math.e ** predictions
-        distributions = distributions / torch.sum(distributions, dim=-1, keepdim=True)
-        distributions = -torch.log(distributions)
+        edge_embeddings_forward = torch.cat([src_node_embeddings, dst_node_embeddings], dim = -1)
+        edge_embeddings_backward = torch.cat([dst_node_embeddings, src_node_embeddings], dim = -1)
+        # 添加一个边的生成层
+        edge_embeddings_forward = self.edge_generator_forward(edge_embeddings_forward)
+        edge_embeddings_backward = self.edge_generator_forward(edge_embeddings_backward)
+        edge_embeddings = edge_embeddings_forward + edge_embeddings_backward
 
-        cn_count = self.one_hop_matrix[src_node_indexes, dst_node_indexes]
-        jaccard = cn_count / all_neighbors_count
+        # edge_embeddings = torch.mul(src_node_embeddings,dst_node_embeddings)
 
-        jaccard = torch.where(torch.isnan(jaccard), torch.full_like(jaccard, 0), jaccard)
-        shift_radio = 1 / (2 * math.e ** (jaccard))
-        shift_radio = shift_radio.unsqueeze(dim=1)
-        shift_radio = shift_radio.repeat((1, 2))
-        labels_onehot = labels_onehot - shift_radio * 0.1
-        labels_onehot = torch.abs(labels_onehot)
-        distributions = torch.mul(distributions, labels_onehot)
-        loss = torch.sum(distributions)
+        predictions = self.liner(edge_embeddings)
 
+        loss = self.cross_entropy(predictions, labels)
         return loss
 
     def test(self, edges):
@@ -632,8 +634,16 @@ class MihGNNEmbedding12WithJaccard(nn.Module):
 
         src_node_embeddings = self.aggregationModule(src_node_indexes)
         dst_node_embeddings = self.aggregationModule(dst_node_indexes)
-        node_embeddings = torch.cat([src_node_embeddings, dst_node_embeddings], dim=-1)
-        predictions = self.liner(node_embeddings)
+        edge_embeddings_forward = torch.cat([src_node_embeddings, dst_node_embeddings], dim=-1)
+        edge_embeddings_backward = torch.cat([dst_node_embeddings, src_node_embeddings], dim=-1)
+        # 添加一个边的生成层
+        edge_embeddings_forward = self.edge_generator_forward(edge_embeddings_forward)
+        edge_embeddings_backward = self.edge_generator_forward(edge_embeddings_backward)
+        edge_embeddings = edge_embeddings_forward + edge_embeddings_backward
+
+        # edge_embeddings = torch.mul(src_node_embeddings, dst_node_embeddings)
+
+        predictions = self.liner(edge_embeddings)
         predictions = self.soft_max(predictions)
         return predictions
 

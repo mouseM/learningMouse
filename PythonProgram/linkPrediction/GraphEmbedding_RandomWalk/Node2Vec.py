@@ -8,11 +8,32 @@ import torch
 from gensim.models import Word2Vec
 from torch import nn
 from GraphEmbedding_RandomWalk.NN import LineNetwork
+import networkx
 
 class Node2vec(nn.Module):
     def __init__(self, G, A, walk_length, p, q, embed_size, iter, window_size, workers):
         super(Node2vec, self).__init__()
-        self.G = G
+        # self.G = G
+        # self.A = A
+        # self.walk_length = walk_length
+        # self.p = p
+        # self.q = q
+        # self.embed_size = embed_size
+        # self.iter = iter
+        # self.window_size = window_size
+        # self.workers = workers
+        # self.nodes = sorted(G.nodes(), key=lambda x: int(x))
+        # self.edges = list(G.edges())
+        # self.preprocess_transition_probs()
+        # self.get_embeddings(embed_size = embed_size, window_size = window_size, workers = workers, iter = iter)
+        #
+        # self.line = LineNetwork(input_features=self.embed_size * 2, hidden_features=self.embed_size, output_features=2)
+        # self.softMax = nn.Softmax(dim = -1)
+        # self.loss = nn.CrossEntropyLoss()
+
+
+        self.G = networkx.Graph(self.get_edges(A))
+
         self.A = A
         self.walk_length = walk_length
         self.p = p
@@ -21,14 +42,36 @@ class Node2vec(nn.Module):
         self.iter = iter
         self.window_size = window_size
         self.workers = workers
-        self.nodes = sorted(G.nodes(), key=lambda x: int(x))
-        self.edges = list(G.edges())
+        # self.nodes = sorted(self.G.nodes(), key=lambda x: int(x))
+        self.nodes = [str(i) for i in range(A.shape[0])]
+        self.G.add_nodes_from(self.nodes)
+        self.edges = list(self.G.edges())
         self.preprocess_transition_probs()
-        self.get_embeddings(embed_size = embed_size, window_size = window_size, workers = workers, iter = iter)
+        self.get_embeddings(embed_size=embed_size, window_size=window_size, workers=workers, iter=iter)
 
-        self.line = LineNetwork(feature_dim=self.embed_size * 2, hidden_layer_dim=self.embed_size, output_dim=2)
-        self.softMax = nn.Softmax(dim = -1)
+        self.line = LineNetwork(input_features=self.embed_size * 2, hidden_features=self.embed_size, output_features=2)
+        self.softMax = nn.Softmax(dim=-1)
         self.loss = nn.CrossEntropyLoss()
+
+        self.edge_generator_forward = nn.Sequential(
+            nn.Linear(embed_size * 2, embed_size * 2, bias=True),
+            nn.BatchNorm1d(num_features=embed_size * 2),
+            nn.ReLU()
+        )
+        self.edge_generator_backward = nn.Sequential(
+            nn.Linear(embed_size * 2, embed_size * 2, bias=True),
+            nn.BatchNorm1d(num_features=embed_size * 2),
+            nn.ReLU()
+        )
+
+    def get_edges(self, A):
+        edges = []
+        for i, row in enumerate(A):
+            for j, col in enumerate(row):
+                if (A[i][j] != 0):
+                    edges.append((str(i), str(j)))
+        numpy.random.shuffle(edges)
+        return edges
 
     def forward(self, *input):
         edges = input[0]
@@ -38,7 +81,18 @@ class Node2vec(nn.Module):
         dst_nodes = edges[1]
         src_embeddings = self.word_embeddings.index_select(index=src_nodes, dim=0)
         dst_embeddings = self.word_embeddings.index_select(index=dst_nodes, dim=0)
-        edge_embeddings = torch.cat([src_embeddings, dst_embeddings], dim=1)
+        # edge_embeddings = torch.cat([src_embeddings, dst_embeddings], dim=1)
+
+        edge_embeddings_forward = torch.cat([src_embeddings, dst_embeddings], dim=-1)
+        edge_embeddings_backward = torch.cat([dst_embeddings, src_embeddings], dim=-1)
+        # 添加一个边的生成层
+        edge_embeddings_forward = self.edge_generator_forward(edge_embeddings_forward)
+        edge_embeddings_backward = self.edge_generator_backward(edge_embeddings_backward)
+        edge_embeddings = edge_embeddings_forward + edge_embeddings_backward
+
+        # 哈达玛积表示边
+        # edge_embeddings = torch.mul(src_embeddings, dst_embeddings)
+
         output = self.line(edge_embeddings)
         output = self.softMax(output)
         loss = self.loss(output, labels)
@@ -175,7 +229,18 @@ class Node2vec(nn.Module):
         dst_nodes = edges[1]
         src_embeddings = self.word_embeddings.index_select(index=src_nodes, dim=0)
         dst_embeddings = self.word_embeddings.index_select(index=dst_nodes, dim=0)
-        edge_embeddings = torch.cat([src_embeddings, dst_embeddings], dim=1)
+        # edge_embeddings = torch.cat([src_embeddings, dst_embeddings], dim=1)
+
+        edge_embeddings_forward = torch.cat([src_embeddings, dst_embeddings], dim=-1)
+        edge_embeddings_backward = torch.cat([dst_embeddings, src_embeddings], dim=-1)
+        # 添加一个边的生成层
+        edge_embeddings_forward = self.edge_generator_forward(edge_embeddings_forward)
+        edge_embeddings_backward = self.edge_generator_backward(edge_embeddings_backward)
+        edge_embeddings = edge_embeddings_forward + edge_embeddings_backward
+
+        # 哈达玛积表示边
+        # edge_embeddings = torch.mul(src_embeddings, dst_embeddings)
+
         output = self.line(edge_embeddings)
         output = self.softMax(output)
         return output

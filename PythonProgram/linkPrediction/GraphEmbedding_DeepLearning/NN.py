@@ -11,17 +11,17 @@ class LineNetwork(nn.Module):
         super(LineNetwork, self).__init__()
         self.line1 = nn.Sequential(
             nn.Linear(input_features, hidden_features, bias=True),
-            # nn.Dropout(p=0.5),
-            nn.BatchNorm1d(num_features = hidden_features),
+            nn.Dropout(p=0.3),
+            # nn.BatchNorm1d(num_features = hidden_features),
             nn.ReLU()
         )
-        self.line2 = nn.Sequential(
-            nn.Linear(hidden_features, hidden_features, bias=True),
-            nn.Dropout(p=0.5),
-            nn.ReLU()
-        )
+        # self.line2 = nn.Sequential(
+        #     nn.Linear(hidden_features * 2, hidden_features, bias=True),
+        #     nn.Dropout(p=0.3),
+        #     nn.ReLU()
+        # )
 
-        self.line3 = nn.Sequential(
+        self.line2 = nn.Sequential(
             nn.Linear(hidden_features, output_features, bias=False),
             nn.BatchNorm1d(num_features = output_features),
             nn.ReLU()
@@ -31,7 +31,7 @@ class LineNetwork(nn.Module):
     def forward(self, input):
         ouput = self.line1(input)
         ouput = self.line2(ouput)
-        ouput = self.line3(ouput)
+        # ouput = self.line3(ouput)
         return ouput
 
 

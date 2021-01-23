@@ -10,7 +10,7 @@ import numpy
 from imblearn.over_sampling import SMOTE
 from GraphEmbedding_RandomWalk.NN import LineNetwork
 from torch import nn
-
+import networkx
 
 class Deep_Walk(nn.Module):
     # walk_length: 随机游走的步数
@@ -20,18 +20,50 @@ class Deep_Walk(nn.Module):
         super(Deep_Walk, self).__init__()
         self.walk_length = walk_length
         self.embed_size = embed_size
-        self.G = G
+        # self.G = G
+        # self.A = A
+        # self.window_size = window_size
+        # self.workers = workers
+        # self.iter = iter
+        # self.nodes = sorted(G.nodes(), key=lambda x: int(x))
+        # self.edges = G.edges()
+        # self.get_embedding(embed_size=embed_size, window_size=window_size, workers=workers, iter=iter)
+        #
+        # self.line = LineNetwork(feature_dim = self.embed_size * 2, hidden_layer_dim = self.embed_size, output_dim = 2)
+        # self.softMax = nn.Softmax(dim = -1)
+        # self.loss = nn.CrossEntropyLoss()
+        self.G = networkx.Graph(self.get_edges(A))
         self.A = A
         self.window_size = window_size
         self.workers = workers
         self.iter = iter
-        self.nodes = sorted(G.nodes(), key=lambda x: int(x))
-        self.edges = G.edges()
+        self.nodes = [str(i) for i in range(A.shape[0])]
+        self.G.add_nodes_from(self.nodes)
+        self.edges = list(self.G.edges())
         self.get_embedding(embed_size=embed_size, window_size=window_size, workers=workers, iter=iter)
-
-        self.line = LineNetwork(feature_dim = self.embed_size * 2, hidden_layer_dim = self.embed_size, output_dim = 2)
-        self.softMax = nn.Softmax(dim = -1)
+        self.line = LineNetwork(input_features=self.embed_size, hidden_features=self.embed_size, output_features=2)
+        self.softMax = nn.Softmax(dim=-1)
         self.loss = nn.CrossEntropyLoss()
+
+        # self.edge_generator_forward = nn.Sequential(
+        #     nn.Linear(embed_size * 2, embed_size * 2, bias=True),
+        #     nn.BatchNorm1d(num_features=embed_size * 2),
+        #     nn.ReLU()
+        # )
+        # self.edge_generator_backward = nn.Sequential(
+        #     nn.Linear(embed_size * 2, embed_size * 2, bias=True),
+        #     nn.BatchNorm1d(num_features=embed_size * 2),
+        #     nn.ReLU()
+        # )
+
+    def get_edges(self, A):
+        edges = []
+        for i, row in enumerate(A):
+            for j, col in enumerate(row):
+                if (A[i][j] != 0):
+                    edges.append((str(i), str(j)))
+        numpy.random.shuffle(edges)
+        return edges
 
     def forward(self, *input):
         edges = input[0]
@@ -41,7 +73,18 @@ class Deep_Walk(nn.Module):
         dst_nodes = edges[1]
         src_embeddings = self.word_embeddings.index_select(index=src_nodes, dim=0)
         dst_embeddings = self.word_embeddings.index_select(index=dst_nodes, dim=0)
-        edge_embeddings = torch.cat([src_embeddings, dst_embeddings], dim=1)
+        # edge_embeddings = torch.cat([src_embeddings, dst_embeddings], dim=1)
+
+        # edge_embeddings_forward = torch.cat([src_embeddings, dst_embeddings], dim=-1)
+        # edge_embeddings_backward = torch.cat([dst_embeddings, src_embeddings], dim=-1)
+        # # 添加一个边的生成层
+        # edge_embeddings_forward = self.edge_generator_forward(edge_embeddings_forward)
+        # edge_embeddings_backward = self.edge_generator_backward(edge_embeddings_backward)
+        # edge_embeddings = edge_embeddings_forward + edge_embeddings_backward
+
+        # 哈达玛积表示边
+        edge_embeddings = torch.mul(src_embeddings, dst_embeddings)
+
         output = self.line(edge_embeddings)
         output = self.softMax(output)
         loss = self.loss(output, labels)
@@ -89,7 +132,20 @@ class Deep_Walk(nn.Module):
         dst_nodes = edges[1]
         src_embeddings = self.word_embeddings.index_select(index=src_nodes, dim=0)
         dst_embeddings = self.word_embeddings.index_select(index=dst_nodes, dim=0)
-        edge_embeddings = torch.cat([src_embeddings, dst_embeddings], dim=1)
+        # 直接拼接形成边
+        # edge_embeddings = torch.cat([src_embeddings, dst_embeddings], dim=1)
+
+        # # 使用生成便的一个独立结构
+        # edge_embeddings_forward = torch.cat([src_embeddings, dst_embeddings], dim=-1)
+        # edge_embeddings_backward = torch.cat([dst_embeddings, src_embeddings], dim=-1)
+        # # 添加一个边的生成层
+        # edge_embeddings_forward = self.edge_generator_forward(edge_embeddings_forward)
+        # edge_embeddings_backward = self.edge_generator_backward(edge_embeddings_backward)
+        # edge_embeddings = edge_embeddings_forward + edge_embeddings_backward
+
+        # 哈达玛积表示边
+        edge_embeddings = torch.mul(src_embeddings, dst_embeddings)
+
         output = self.line(edge_embeddings)
         output = self.softMax(output)
         return output

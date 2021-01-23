@@ -1,28 +1,28 @@
 {
-  "data_set": "Yeast",
+  "data_set": "USAir",
   "module_name": "Node2Vec",
-  "batchSize": 32,
+  "batchSize": 128,
   "epochs": 50,
   "radio": 0.9,
   "learning_rate": 0.0001,
   "Node2Vec":{
     "embed_size": 128,
-    "walk_length": 100,
+    "walk_length": 64,
     "num_walks": 10,
     "walker": 1,
-    "p":0.25,
-    "q":4,
-    "window_size": 10,
-    "iter": 5,
+    "p":1,
+    "q":1,
+    "window_size": 5,
+    "iter": 10,
     "workers":1,
     "sample_method": "under_sample"
   },
   "DeepWalk": {
     "embed_size": 128,
-    "walk_length": 64,
+    "walk_length": 32,
     "num_walks": 10,
-    "window_size": 10,
-    "iter": 100,
+    "window_size": 5,
+    "iter": 10,
     "workers":1,
     "sample_method": "under_sample"
   }
