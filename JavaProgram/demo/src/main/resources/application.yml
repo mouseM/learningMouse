@@ -12,6 +12,41 @@ spring:
     port: 6379
     pool:
       max-active: 8
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    producer:
+      retries: 0
+      acks: 1
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        linger:
+          ms: 0
+        partitioner:
+          class: Mih.demo.kafka.CustomizePartitioner
+    consumer:
+      properties:
+        group:
+          id: defaultConsumerGroup
+        session:
+          timeout:
+            ms: 120000
+        request:
+          timeout:
+            ms: 180000
+      enable-auto-commit: true
+
+      auto:
+        commit:
+          interval:
+            ms: 1000
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      missing-topics-fatal: false
 #mybatis的相关配置
 mybatis:
   #mapper配置文件

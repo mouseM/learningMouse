@@ -2,7 +2,6 @@ package Mih.demo.Controllers;
 
 import Mih.demo.Dao.Services.UserService;
 import Mih.demo.Modules.User;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,7 @@ public class UserController {
 
     @RequestMapping(value = "/createuser", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public void createUser(@RequestBody JSONObject jsonParam) {
-        User user = jsonParam.toJavaObject(User.class);
+    public void createUser(@RequestBody User user) {
 
         userService.createUser(user);
     }

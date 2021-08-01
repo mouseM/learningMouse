@@ -33,4 +33,6 @@ public interface StudentMapper {
                            @Param("telephoneNumber") String telephoneNumber,
                            @Param("e_mailAddress") String e_mailAddress,
                            @Param("address") String address);
+
+    int updateStudent(@Param("student") Student student);
 }

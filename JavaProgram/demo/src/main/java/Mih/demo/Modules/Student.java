@@ -1,27 +1,36 @@
 package Mih.demo.Modules;
 
-import org.apache.ibatis.type.Alias;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
 
 public class Student implements InitializingBean, DisposableBean, Serializable {
 
+    @NotNull(message = "学生ID不能为空")
+    @Min(1)
     private int studentId;
 
+    @NotNull(message = "学生姓名不能为空")
+    @NotEmpty(message = "学生姓名不能为空串")
     private String name;
 
+    @NotNull(message = "出生日期不能为空")
+    @Past(message = "出生日期输入错误")
     private Date birthday;
 
     private String sex;
 
+    @NotNull(message = "电话号码不能为空")
+    @Pattern(regexp = "1[0-9]{10}", message = "电话号码输入格式错误")
     private String telephoneNumber;
 
+    @NotNull(message = "电子邮箱输入不能为空")
+    @Email(message = "电子邮箱输入格式错误")
     private String e_mailAddress;
 
     private String address;
@@ -64,10 +73,15 @@ public class Student implements InitializingBean, DisposableBean, Serializable {
 
     @Override
     public String toString() {
-        return "number: " + studentId + "\n" +
-                "name: " + name + "\n" +
-                "birthday: " + birthday + "\n" +
-                "sex: " + sex;
+        return "Student{" +
+                "studentId=" + studentId +
+                ", name='" + name + '\'' +
+                ", birthday=" + birthday +
+                ", sex='" + sex + '\'' +
+                ", telephoneNumber='" + telephoneNumber + '\'' +
+                ", e_mailAddress='" + e_mailAddress + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 
     @PostConstruct

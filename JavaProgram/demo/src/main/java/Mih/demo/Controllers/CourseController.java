@@ -18,6 +18,9 @@ public class CourseController {
     @Autowired
     ClassService classService;
 
+    @Autowired
+    RestfulTest restfulTest;
+
     @RequestMapping(value = "/getcoursesbyteacherid", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public List<Course> getCoursesByTeacherId(@RequestParam("tid") String teacherId) {

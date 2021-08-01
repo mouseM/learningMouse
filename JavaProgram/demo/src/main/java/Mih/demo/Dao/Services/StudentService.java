@@ -19,4 +19,6 @@ public interface StudentService {
     void deleteStudentById(String studentId);
     
     void updateStudentById(Student student);
+
+    public int updateStudent(Student student);
 }

@@ -1,6 +1,6 @@
 package Mih.demo;
 
-import com.alibaba.fastjson.JSON;
+import Mih.demo.Controllers.RestfulTest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -11,12 +11,17 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 @SpringBootApplication
-//@EnableCaching
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
+
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(DemoApplication.class, args);
+		System.out.println("IOC 容器启动完成！");
+//		RestfulTest lazyInitBean = applicationContext.getBean("restfulTest", RestfulTest.class);
+//		if (lazyInitBean != null) {
+//			System.out.println("懒加载的Bean已经加载！");
+//		}
+
 //		applicationContext.close();
 
 	}

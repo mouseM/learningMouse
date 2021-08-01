@@ -5,7 +5,6 @@ import Mih.demo.Modules.Annotation;
 import Mih.demo.Modules.Response;
 import Mih.demo.Modules.Student;
 import Mih.demo.Modules.Teacher;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -49,10 +48,9 @@ public class TeacherController {
 
     @RequestMapping(value = "/createteacher", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public Response createTeacher(@RequestBody JSONObject jsonParam) {
+    public Response createTeacher(@RequestBody Teacher teacher) {
         Response response = new Response();
         try {
-            Teacher teacher = jsonParam.toJavaObject(Teacher.class);
             teacherService.createTeacher(teacher);
             response.setState(200);
         } catch (Exception e) {

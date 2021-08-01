@@ -9,6 +9,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -27,12 +28,15 @@ public class StudentImp implements StudentService {
     /*
     对于查询操作首先从缓存中进行查询
      */
+    @Transactional
     @Cacheable(value = "student", keyGenerator = "simpleKeyGenerator", cacheManager = "cacheManager")
+    @Override
     public Student findStudentByNumber(String number) {
         Student student = studentMapper.getStudentByNumber(number);
         return student;
     }
 
+    @Transactional
     @Override
     public List<Student> getAllStudents() {
         return studentMapper.getAllStudents();
@@ -41,6 +45,7 @@ public class StudentImp implements StudentService {
     /*
     对于创建操作， 直接修改数据库
      */
+    @Transactional
     @Override
     public void createStudent(Student student) {
         studentMapper.createStudent(
@@ -56,17 +61,20 @@ public class StudentImp implements StudentService {
     /*
     对于创建操作， 直接修改数据库
      */
+    @Transactional
     @Override
     public void createStudents(List<Student> students) {
         studentMapper.createStudents(students);
     }
 
+    @Transactional
     @Override
     @CacheEvict(value = "student", key = "#studentId")
     public void deleteStudentById(String studentId) {
         studentMapper.delStudentById(studentId);
     }
 
+    @Transactional
     @Override
     public void updateStudentById(Student student) {
         int number = student.getStudentId();
@@ -81,5 +89,10 @@ public class StudentImp implements StudentService {
                 telephoneNumber, e_mailAddress, address);
     }
 
+    @Override
+    @Transactional
+    public int updateStudent(Student student) {
+        return studentMapper.updateStudent(student);
+    }
 
 }

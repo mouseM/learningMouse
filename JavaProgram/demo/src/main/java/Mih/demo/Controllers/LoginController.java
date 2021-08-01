@@ -4,8 +4,8 @@ import Mih.demo.Dao.Services.UserService;
 import Mih.demo.Modules.Response;
 import Mih.demo.Modules.Annotation;
 import Mih.demo.Modules.User;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +33,7 @@ public class LoginController {
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public Response login(@RequestBody JSONObject jsonParam) {
-        User user = jsonParam.toJavaObject(User.class);
+    public Response login(@RequestBody User user) {
         String userName = user.getUserName();
         String password = user.getPassWord();
         Response response = new Response();

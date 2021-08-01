@@ -3,7 +3,6 @@ package Mih.demo.Controllers;
 import Mih.demo.Dao.Services.AdminService;
 import Mih.demo.Modules.Annotation;
 import Mih.demo.Modules.Response;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,8 +36,7 @@ public class AdminController {
 
     @RequestMapping(value = "/publishannotaions", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public Response publishAnnotations(@RequestBody JSONObject jsonParam) {
-        Annotation annotation = jsonParam.toJavaObject(Annotation.class);
+    public Response publishAnnotations(@RequestBody Annotation annotation) {
         Date date = annotation.getDate();
         String detials = annotation.getDetials();
         adminService.publishAnnotation(annotation);
