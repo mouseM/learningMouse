@@ -4,11 +4,14 @@ import Mih.demo.CacheServer.RedisServer;
 import Mih.demo.Dao.Services.StudentService;
 import Mih.demo.Mappers.StudentMapper;
 import Mih.demo.Modules.Student;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -45,17 +48,10 @@ public class StudentImp implements StudentService {
     /*
     对于创建操作， 直接修改数据库
      */
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void createStudent(Student student) {
-        studentMapper.createStudent(
-                student.getStudentId(),
-                student.getName(),
-                student.getBirthday(),
-                student.getSex(),
-                student.getTelephoneNumber(),
-                student.getE_mailAddress(),
-                student.getAddress());
+        studentMapper.createStudent(student);
     }
 
     /*
@@ -93,6 +89,16 @@ public class StudentImp implements StudentService {
     @Transactional
     public int updateStudent(Student student) {
         return studentMapper.updateStudent(student);
+    }
+
+    @Transactional
+    @Override
+    public List<Student> getBatchStudents() {
+        int pageNumber = 2;
+        int pageSize = 5;
+        Page page = PageHelper.startPage(pageNumber, pageSize);
+        List<Student> students = studentMapper.getBatchStudents();
+        return students;
     }
 
 }

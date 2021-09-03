@@ -14,9 +14,9 @@ public interface TeacherMapper {
 
     List<Teacher> getAllTeachers();
 
-    void createTeacher(@Param("TId") String number,
+    void createTeacher(@Param("TId") int tId,
                        @Param("Tname") String name,
-                       @Param("birthday") Date birthday,
+                       @Param("birthday") String birthday,
                        @Param("sex") String sex,
                        @Param("e_mailAddress") String e_mailAddress,
                        @Param("telephoneNumber") String telephoneNumber,

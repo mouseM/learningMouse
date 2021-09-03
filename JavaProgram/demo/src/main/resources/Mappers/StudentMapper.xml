@@ -34,9 +34,18 @@
         select * from student
     </select>
 
-    <insert id="createStudent">
+    <select id="getBatchStudents" resultMap="Student">
+        select * from student
+    </select>
+
+<!--    <insert id="createStudent">-->
+<!--        insert into student (SId, Sname, Sage, Ssex, telephoneNumber, e_mailAddress, address) values-->
+<!--        (#{studentId}, #{name}, #{Sage}, #{Ssex}, #{telephoneNumber}, #{e_mailAddress}, #{address})-->
+<!--    </insert>-->
+
+    <insert id="createStudent" parameterType="Mih.demo.Modules.Student">
         insert into student (SId, Sname, Sage, Ssex, telephoneNumber, e_mailAddress, address) values
-        (#{SId}, #{Sname}, #{Sage}, #{Ssex}, #{telephoneNumber}, #{e_mailAddress}, #{address})
+        (#{studentId}, #{name}, #{birthday}, #{sex}, #{telephoneNumber}, #{e_mailAddress}, #{address})
     </insert>
 
     <insert id="createStudents">
@@ -59,6 +68,31 @@
             telephoneNumber = #{telephoneNumber}
             e_mailAddress = #{e_mailAddress}
             address = #{address}
+    </update>
+
+    <update id="updateStudent" parameterType="Mih.demo.Modules.Student">
+        update student
+        <set>
+            <if test="name != null">
+                Sname = #{name},
+            </if>
+            <if test="birthday != null">
+                SAGE = #{birthday},
+            </if>
+            <if test="sex != null">
+                SSEX = #{sex},
+            </if>
+            <if test="telephoneNumber != null">
+                TELEPHONENUMBER = #{telephoneNumber},
+            </if>
+            <if test="e_mailAddress != null">
+                E_MAILADDRESS = #{e_mailAddress},
+            </if>
+            <if test="address != null">
+                ADDRESS = #{address},
+            </if>
+        </set>
+        where SID = #{studentId}
     </update>
 </mapper>
 

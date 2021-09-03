@@ -51,8 +51,10 @@ spring:
 mybatis:
   #mapper配置文件
   mapper-locations: classpath:Mappers/*.xml
+  config-location: classpath:mybatis-config.xml
   type-aliases-package: Mih.demo.Modules
   entity_package: Mih.demo.Modules
+
   #开启驼峰命名
 #  configuration:
 #    map-underscore-to-camel-case: true

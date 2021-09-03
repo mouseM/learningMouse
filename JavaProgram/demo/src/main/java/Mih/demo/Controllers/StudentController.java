@@ -85,9 +85,27 @@ public class StudentController {
     @ResponseBody
     public Response selectCourse(@RequestBody Course course) {
         classService.selectCourse(course);
+
         Response response = new Response();
         return response;
     }
+
+    @GetMapping(value = "/slectstudentsbatch")
+    public Response slectStudentsBatch() {
+        Response response = new Response();
+        List<Student> batchStudents = studentService.getBatchStudents();
+        if (batchStudents.size() > 0) {
+            response.setState(200);
+            response.setObj(batchStudents);
+            response.setMessage("查询成功！");
+        } else {
+            response.setState(500);
+            response.setMessage("查询失败！");
+        }
+        return response;
+
+    }
+
 
     @PutMapping("/updatestudent")
     public Response updateStudent(@RequestBody @Validated Student student) {

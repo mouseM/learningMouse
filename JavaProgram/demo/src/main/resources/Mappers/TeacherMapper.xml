@@ -19,8 +19,7 @@
         <result column="TId" jdbcType="INTEGER" javaType="java.lang.Integer" property="teacherId" />
         <result column="Tname" jdbcType="VARCHAR" javaType="java.lang.String" property="teacherName" />
         <result column="sex" jdbcType="VARCHAR" javaType="java.lang.String" property="sex" />
-        <result column="Sage" jdbcType="TIMESTAMP" property="birthday" />
-        <result column="Tname" jdbcType="VARCHAR" javaType="java.lang.String" property="teacherName" />
+        <result column="Sage" jdbcType="TIMESTAMP" javaType="java.lang.String" property="birthday" />
         <result column="telephoneNumber" jdbcType="VARCHAR" javaType="java.lang.String" property="telephoneNumber" />
         <result column="e_mailAddress" jdbcType="VARCHAR" javaType="java.lang.String" property="e_mailAddress" />
         <result column="address" jdbcType="VARCHAR" javaType="java.lang.String" property="address" />
@@ -40,7 +39,7 @@
     </insert>
 
     <insert id="createTeacher">
-        insert into teacher (TId, Tname, birthday, sex, telephoneNumber, e_mailAddress, address) values
+        insert into teacher (TId, Tname, Sage, sex, telephoneNumber, e_mailAddress, address) values
         (#{TId}, #{Tname}, #{birthday}, #{sex}, #{telephoneNumber}, #{e_mailAddress}, #{address})
     </insert>
 </mapper>

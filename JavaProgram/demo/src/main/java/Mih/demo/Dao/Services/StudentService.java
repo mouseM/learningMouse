@@ -21,4 +21,6 @@ public interface StudentService {
     void updateStudentById(Student student);
 
     public int updateStudent(Student student);
+
+    List<Student> getBatchStudents();
 }

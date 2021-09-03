@@ -20,8 +20,8 @@ public class ControllerAspect {
     @Pointcut("execution(public * Mih.demo.Controllers.RestfulTest.hello(..)))")
     public void pointCut() { }
 
-    @Pointcut("execution(* Mih.demo.Controllers.*.*(..))")
-    public void LogPointCut() {}
+//    @Pointcut("execution(* Mih.demo.Controllers.*.*(..))")
+//    public void LogPointCut() {}
 
     @Before("pointCut()")
     public void beforProcess(){
@@ -33,30 +33,30 @@ public class ControllerAspect {
         System.out.println("after!");
     }
 
-    @Before("LogPointCut()")
-    public void doBefore(JoinPoint joinPoint) {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        //url
-        LOGGER.info("url:{}", request.getRequestURL());
-        //method
-        LOGGER.info("method:{}", request.getMethod());
-        //ip
-        LOGGER.info("ip:{}", request.getRemoteAddr());
-        //类方法
-        LOGGER.info("class_method:{}", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        //参数(joinPoint.getArgs()返回一个参数数组)
-        LOGGER.info("args: ");
-        Object[] args = joinPoint.getArgs();
-        Arrays.stream(args).forEach(arg -> {
-            LOGGER.info(arg.toString());
-        });
-//        LOGGER.info("args:{}", Arrays.asList(joinPoint.getArgs()));
-    }
-
-    @AfterReturning(returning = "object", pointcut = "LogPointCut()")
-    public void doAfterReturning(Object object) {
-        LOGGER.info("response:{}", object.toString());
-    }
+//    @Before("LogPointCut()")
+//    public void doBefore(JoinPoint joinPoint) {
+//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        HttpServletRequest request = attributes.getRequest();
+//        //url
+//        LOGGER.info("url:{}", request.getRequestURL());
+//        //method
+//        LOGGER.info("method:{}", request.getMethod());
+//        //ip
+//        LOGGER.info("ip:{}", request.getRemoteAddr());
+//        //类方法
+//        LOGGER.info("class_method:{}", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+//        //参数(joinPoint.getArgs()返回一个参数数组)
+//        LOGGER.info("args: ");
+//        Object[] args = joinPoint.getArgs();
+//        Arrays.stream(args).forEach(arg -> {
+//            LOGGER.info(arg.toString());
+//        });
+////        LOGGER.info("args:{}", Arrays.asList(joinPoint.getArgs()));
+//    }
+//
+//    @AfterReturning(returning = "object", pointcut = "LogPointCut()")
+//    public void doAfterReturning(Object object) {
+//        LOGGER.info("response:{}", object.toString());
+//    }
 
 }

@@ -14,13 +14,17 @@ public interface StudentMapper {
 
     List<Student> getAllStudents();
 
-    void createStudent(@Param("SId") int number,
-                       @Param("Sname") String name,
-                       @Param("Sage") Date birthday,
-                       @Param("Ssex") String sex,
-                       @Param("telephoneNumber") String telephoneNumber,
-                       @Param("e_mailAddress") String e_mailAddress,
-                       @Param("address") String address);
+    List<Student> getBatchStudents();
+
+//    void createStudent(@Param("SId") int number,
+//                       @Param("Sname") String name,
+//                       @Param("Sage") Date birthday,
+//                       @Param("Ssex") String sex,
+//                       @Param("telephoneNumber") String telephoneNumber,
+//                       @Param("e_mailAddress") String e_mailAddress,
+//                       @Param("address") String address);
+
+    void createStudent(Student student);
 
     void createStudents(@Param("students") List<Student> students);
 
@@ -34,5 +38,5 @@ public interface StudentMapper {
                            @Param("e_mailAddress") String e_mailAddress,
                            @Param("address") String address);
 
-    int updateStudent(@Param("student") Student student);
+    int updateStudent(Student student);
 }
