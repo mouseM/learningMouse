@@ -6,6 +6,9 @@ import Mih.demo.Mappers.StudentMapper;
 import Mih.demo.Modules.Student;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -27,6 +30,9 @@ public class StudentImp implements StudentService {
 
     @Autowired
     CacheManager cacheManager;
+
+    @Autowired
+    SqlSessionFactory sqlSessionFactory;
 
     /*
     对于查询操作首先从缓存中进行查询
@@ -100,5 +106,46 @@ public class StudentImp implements StudentService {
         List<Student> students = studentMapper.getBatchStudents();
         return students;
     }
+
+    private static final int BATCH = 50;
+
+    @Override
+    public void testCreateManyStudents(List<Student> students) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+            int startIndex = 0;
+            int endIndex = BATCH;
+            while (endIndex <= students.size()) {
+                try {
+                    List<Student> subListToCommit = students.subList(startIndex, endIndex);
+                    for (Student student : subListToCommit) {
+                        studentMapper.createStudent(student);
+                    }
+//                    subListToCommit.forEach(studentMapper::createStudent);
+                    sqlSession.commit();
+                    sqlSession.clearCache();
+                    startIndex += BATCH;
+                    endIndex += BATCH;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println(Thread.currentThread() + " - The error batch is : " + startIndex + "-" + endIndex);
+                    sqlSession.rollback();
+                }
+            }
+            if (startIndex < students.size()) {
+                try {
+                    List<Student> subListToCommit = students.subList(startIndex, students.size());
+                    subListToCommit.forEach(studentMapper::createStudent);
+                    sqlSession.commit();
+                    sqlSession.clearCache();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("The error batch is : " + startIndex + "-" + endIndex);
+                    sqlSession.rollback();
+                }
+            }
+            sqlSession.close();
+    }
+
 
 }

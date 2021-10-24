@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Student implements InitializingBean, DisposableBean, Serializable {
+public class Student implements Serializable {
 
     @NotNull(message = "学生ID不能为空")
     @Min(1)
@@ -36,7 +36,6 @@ public class Student implements InitializingBean, DisposableBean, Serializable {
     private String address;
 
     public Student() {
-        System.out.println("执行构造方法.");
     }
 
     public int getStudentId() {
@@ -82,36 +81,6 @@ public class Student implements InitializingBean, DisposableBean, Serializable {
                 ", e_mailAddress='" + e_mailAddress + '\'' +
                 ", address='" + address + '\'' +
                 '}';
-    }
-
-    @PostConstruct
-    public void testPostConstruct() {
-        System.out.println("执行 @PostConstruct 方法.");
-    }
-
-    @PreDestroy
-    public void testPreDestory() {
-        System.out.println("执行 @PreDestroy 方法.");
-    }
-
-
-
-    @Override
-    public void destroy() throws Exception {
-        System.out.println("执行 DisposableBean 中的 destory().");
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("执行InitializingBean 中的 afterPropertiesSet().");
-    }
-
-    public void myInit() {
-        System.out.println("执行指定的 init().");
-    }
-
-    public void myDestroy() {
-        System.out.println("执行指定的 destroy().");
     }
 
     public String getTelephoneNumber() {

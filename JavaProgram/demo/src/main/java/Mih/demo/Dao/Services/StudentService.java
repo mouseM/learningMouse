@@ -23,4 +23,6 @@ public interface StudentService {
     public int updateStudent(Student student);
 
     List<Student> getBatchStudents();
+
+    void testCreateManyStudents(List<Student> students);
 }
